@@ -65,7 +65,6 @@ if __name__ == "__main__":
     hits = 0
     for fname, q in tqdm(fname2query.items(), desc="Searching", dynamic_ncols=True):
         results = test_search_results(client=test_client, query=q, top_k=10)
-        top_index = results[0]["index"]
-        top_fname = idx2fname.get(top_index, "")
-        hits = hits + 1 if top_fname == fname else hits
+        top_doc = results[0]["text"]
+        hits = hits + 1 if fname2doc[fname] == top_doc else hits
     print(f"Accuracy: {hits / len(fname2query):.4f}")
