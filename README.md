@@ -25,25 +25,28 @@ This demo provides three (3) main functionalities via HTTP requests:
 The "search" functionality is heavily based on the state-of-the-art DistilBERT model 
 ([msmarco-distilbert-base-v2](https://www.sbert.net/docs/pretrained-models/msmarco-v2.html)). This 
 model variation has been finetuned specifically for semantic search, making ideal for the task.
+Although, it should be emphasized that if speed is of utmost importance, there are much leaner and 
+faster alternative approaches to the text similarity task.
 
 - Each document that is added to the database is mapped to a 768-dimensional vector (embedding)
-- The same transformation is applied to the search query text.
-- A built-in cosine similarity function in Elasticsearch scores each document vector with the query 
-  vector and sorts them with a descending order (the most similar document is first in the list).
+- The same text-to-vector transformation is applied to the search query text.
+- A built-in Elasticsearch cosine similarity function sorts the results in descending order 
+  (the most similar document is first in the list).
   
 A subset of the [BBC News Summary dataset](https://www.kaggle.com/pariza/bbc-news-summary/data)
 is being used for the demo. This dataset consists of news articles and their corresponding summaries,
-making it ideal for evaluating our search functionality. More specifically:
+making it ideal for evaluating the _search_ functionality. More specifically:
 
-- Fifty (50) news articles are **added** to the database equally distributed among five (5) categories:
+- Fifty (50) news articles are **added** to the database, equally distributed among five (5) categories:
   i) business, ii) entertainment, iii) politics, iv) sport, and v) tech.
 - The news article summaries are iteratively used as **search** queries.
 - If the **1st** search result (news article) corresponds to the search query (summary), then the search
-  is considered "successful".
+  is defined as "successful".
 - A classification **accuracy** is reported in the end, calculated as the ratio of "successful" searches
   to the total number of searches.
   
-This demo achieves **100%** classification accuracy.
+This demo achieves **100%** classification accuracy in the included subset of the BBC News Summary dataset.
+The dataset can be found inside the `resources` folder.
 
 
 ## Requirements
@@ -55,8 +58,8 @@ This demo achieves **100%** classification accuracy.
 
 ## Installation
 
-1. Clone the repository: `$ git clone https://github.com/kottas/http-rest-demo`
-1. Enter the repository: `$ cd http-rest-demo` 
+1. Clone the repository: `$ git clone https://github.com/kottas/http-rest-demo.git`
+1. Enter the repository: `$ cd http-rest-demo`
 1. Install pipenv: `$ pip install pipenv`
 1. Create a Python 3.8 environment: `$ pipenv --python 3.8`
 1. Activate the Python environment: `$ pipenv shell`
@@ -72,7 +75,8 @@ This demo achieves **100%** classification accuracy.
    1. `http://127.0.0.1:8000/redoc` 
 1. Open a new terminal and execute the HTTP REST demo: `$ python test_main.py`
 
-**Note**: If you run the demo for the 1st time, the finetuned DistilBERT model is going to be downloaded.
+**Notes**:
+- If you run the demo for the 1st time, the finetuned DistilBERT model is going to be downloaded.
 
 
 ## API Endpoints
